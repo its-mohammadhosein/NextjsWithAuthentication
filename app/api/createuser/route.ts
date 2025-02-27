@@ -1,4 +1,4 @@
-import { prisma } from "@/app/lib/Prisma";
+import { Prisma } from "@/app/lib/Prisma";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 export async function POST(req: NextRequest) {
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
-  const find = await prisma.user.findFirst({
+  const find = await Prisma.user.findFirst({
     where: {
       email,
     },
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     );
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  const Create = await prisma.user.create({
+  const Create = await Prisma.user.create({
     data: {
       email: email,
       password: hashedPassword,
